@@ -1,0 +1,35 @@
+\documentclass[12pt]{article}
+\usepackage{mymarco} % my marco file
+\usepackage{parskip} % no auto indent
+\usepackage[margin=1.0in]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\rhead{Shawn Wu} % Define header
+\lhead{3. Decay Rate} % Put assignment #
+\cfoot{\thepage}
+
+\begin{document}
+For fixed \(\vr_1\), fixed centres \(\vc_3, \vc_4\), fixed constant \(\alpha_3, \alpha_4 > 0\), and variable \(r > 0\).
+Define
+\begin{align*}
+    f(r) = \int_{S^2} e^{-\alpha_3|\vr_1 + r\vw - \vc_3|-\alpha_4|\vr_1 + r\vw - \vc_4|} \diff \vw.
+\end{align*}
+Note that 
+\begin{align*}
+    \abs{r\vw} - \abs{\vr_1 - \vc_3}\leq \abs{\vr_1 - \vc_3 + r\vw} \leq \abs{r\vw} + \abs{\vr_1 - \vc_3}, \text{ and } \abs{r\vw} = r.
+\end{align*}
+Therefore,
+\begin{align*}
+    r - \abs{\vr_1 - \vc_3} \leq \abs{\vr_1 - \vc_3 + r\vw} \leq r + \abs{\vr_1 - \vc_3}.
+\end{align*}
+Since \(\alpha_3 > 0\),
+\begin{align*}
+    &-\alpha_3r + \alpha_3\abs{\vr_1 - \vc_3})  \geq -\alpha_3\abs{\vr_1 - \vc_3 + r\vw} \geq -\alpha_3r - \alpha_3 \abs{\vr_1 - \vc_3}, \text{ and similarly}\\
+    &-\alpha_4r + \alpha_4\abs{\vr_1 - \vc_4})  \geq -\alpha_4\abs{\vr_1 - \vc_4 + r\vw} \geq -\alpha_4r - \alpha_4 \abs{\vr_1 - \vc_4}.
+\end{align*}
+Therefore,
+\begin{align*}
+    -r(\alpha_3 + \alpha_4) + \alpha_3 \abs{\vr_1 - \vc_3} + \alpha_4\abs{\vr_1 - \vc_4} \geq \text{exponent} 
+\end{align*}
+\end{document}
