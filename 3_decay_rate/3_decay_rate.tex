@@ -6,12 +6,11 @@
 \pagestyle{fancy}
 \setlength{\headheight}{15pt}
 \rhead{Shawn Wu} % Define header
-\lhead{3. Decay Rate} % Put assignment #
+\lhead{Decay Rate} % Put assignment #
 \cfoot{\thepage}
 
 \begin{document}
-For fixed \(\vr_1\), fixed centres \(\vc_3, \vc_4\), fixed constant \(\alpha_3, \alpha_4 > 0\), and variable \(r > 0\).
-Define
+For fixed \(\vr_1\), fixed centres \(\vc_3, \vc_4\), fixed constant \(\alpha_3, \alpha_4 > 0\), and with variable \(r > 0\), define
 \begin{align*}
     f(r) = \int_{S^2} e^{-\alpha_3|\vr_1 + r\vw - \vc_3|-\alpha_4|\vr_1 + r\vw - \vc_4|} \diff \vw.
 \end{align*}
@@ -30,6 +29,21 @@ Since \(\alpha_3 > 0\),
 \end{align*}
 Therefore,
 \begin{align*}
-    -r(\alpha_3 + \alpha_4) + \alpha_3 \abs{\vr_1 - \vc_3} + \alpha_4\abs{\vr_1 - \vc_4} \geq \text{exponent} 
+    -r(\alpha_3 + \alpha_4) + \alpha_3 \abs{\vr_1 - \vc_3} + \alpha_4\abs{\vr_1 - \vc_4} \geq \text{exponent} \geq -r(\alpha_3 + \alpha_4) - \alpha_3 \abs{\vr_1 - \vc_3} - \alpha_4 \abs{\vr_1 - \vc_4}.
 \end{align*}
+And as \(e^x\) is monotone increasing,
+\begin{align*}
+    e^{-r(\alpha_3 + \alpha_4) + \alpha_3 \abs{\vr_1 - \vc_3} + \alpha_4\abs{\vr_1 - \vc_4}} \geq \text{ integrand } \geq e^{-r(\alpha_3 + \alpha_4) - \alpha_3 \abs{\vr_1 - \vc_3} - \alpha_4 \abs{\vr_1 - \vc_4}}.
+\end{align*}
+Take the integral on all three,
+\begin{align*}
+    \int_{S^2} e^{-r(\alpha_3 + \alpha_4) + \alpha_3 \abs{\vr_1 - \vc_3} + \alpha_4\abs{\vr_1 - \vc_4}}\diff \vw \geq f(r) \geq \int_{S^2} e^{-r(\alpha_3 + \alpha_4) - \alpha_3 \abs{\vr_1 - \vc_3} - \alpha_4 \abs{\vr_1 - \vc_4}}\diff \vw.
+\end{align*}
+Notice that the integral on the LHS and RHS doesn't involve \(\vw\), so we can pull it out, and note that \(\int_{S^2} \diff \vw = 4 \pi\), which is the surface area of the unit sphere.
+Therefore,
+\begin{align*}
+    \boxed{4\pi \mu \cdot e^{-r(\alpha_3 + \alpha_4)} \geq f(r) \geq 4 \pi \frac{1}{\mu} \cdot e^{-r(\alpha_3 + \alpha_4)},}
+\end{align*}
+    where \(\mu = \alpha_3 \abs{\vr_1 - \vc_3} + \alpha_4 \abs{\vr_1 - \vc_4}\).
+
 \end{document}
