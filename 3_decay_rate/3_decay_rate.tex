@@ -46,4 +46,28 @@ Therefore,
 \end{align*}
     where \(\mu = \alpha_3 \abs{\vr_1 - \vc_3} + \alpha_4 \abs{\vr_1 - \vc_4}\).
 
+\newpage
+
+Now for fixed centres \(\vc_3, \vc_4\) and fixed constants \(\alpha_3, \alpha_3 > 0\), define
+\begin{align*}
+    g(\vr_1) = \int_{0}^{\infty} r \int_{S^2} e^{-\alpha_3|\vr_1 + r\vw - \vc_3|-\alpha_4|\vr_1 + r\vw - \vc_4|} \diff \vw \dr.
+\end{align*}
+Note that
+\begin{align*}
+    g(\vr_1) = \int_{0}^{\infty} r f_{\vr_1}(r) \dr.
+\end{align*}
+Based on the previous results,
+\begin{align*}
+    4\pi \mu_{\vr_1} \cdot \int_{0}^{\infty} re^{-(\alpha_3 + \alpha_4)r} \dr \geq g(\vr_1) \geq 4\pi \frac{1}{\mu_{\vr_1}} \cdot \int_{0}^{\infty} re^{-(\alpha_3 + \alpha_4)r} \dr,
+\end{align*}
+where \(\mu_{\vr_1} = \alpha_3\abs{\vr_1 - \vc_3} + \alpha_4 \abs{\vr_1 - \vc_4}\).
+And using integration by parts twice,
+\begin{align*}
+    \int_{0}^{\infty} re^{-(\alpha_3 + \alpha_4)r} \dr = \brac{-\frac{r}{\alpha_3+\alpha_4}e^{-(\alpha_3 + \alpha_4)r}}_0^{\infty} - \brac{\frac{1}{(\alpha_3+\alpha_4)^2}e^{-(\alpha_3+\alpha_4)r}}_{0}^{\infty} = \frac{1}{(\alpha_3 + \alpha_4)^2}.
+\end{align*}
+Therefore, putting everything together, we have
+\begin{align*}
+    \boxed{\kappa \pare{\alpha_3\abs{\vr_1 - \vc_3} + \alpha_4 \abs{\vr_1 - \vc_4}} \geq g(\vr_1) \geq \frac{\kappa}{\pare{\alpha_3\abs{\vr_1 - \vc_3} + \alpha_4 \abs{\vr_1 - \vc_4}}},}
+\end{align*}
+where \(\kappa = 4\pi/(\alpha_3 + \alpha_4)^2\).
 \end{document}
