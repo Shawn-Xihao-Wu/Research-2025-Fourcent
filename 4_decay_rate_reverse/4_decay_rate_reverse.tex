@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage{mymarco} % my marco file
+\usepackage{parskip} % no auto indent
+\usepackage[margin=1.0in]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\rhead{Shawn Wu} % Define header
+\lhead{Decay Rate Reverse Order}
+\cfoot{\thepage}
+
+\begin{document}
+\underline{\textbf{Goal:}} Find an upper bound \(F(r)\) of the function,
+\begin{align*}
+    f(r) = \int_{\R^3} e^{-\alpha_1|\vr_1 - \vc_1| - \alpha_2|\vr_1 - \vc_2|-\alpha_3|\vr_1 + r\vom - \vc_3|-\alpha_4|\vr_1 + r\vom - \vc_4|} \diff \vr_1,
+\end{align*}
+such that \(f(r) \leq F(r) = \mathcal{O}(e^{-\beta r})\) for some \(\beta > 0\). And the bound should be easy to calculate with only elementary operation.
+
+\underline{\textbf{Intuition:}} Note that the exponent in the integrand can be written as 
+\begin{align*}
+    -\alpha_1|\vr_1 - \vc_1| - \alpha_2|\vr_1 - \vc_2|-\alpha_3|\vr_1 - (\vc_3-r\vom)|-\alpha_4|\vr_1 - (\vc_4 - r\vom)|,
+\end{align*} 
+meaning that as \(r\) grows to infinity, we can think the centres \(\vc_3, \vc_4\) are moving away from \(\vc_1, \vc_2\) in the direction \(-\omega\) up to infinity. And the indefinie integral \(f(r)\) should goes to zero exponentially as \(r\) grows to infinity because when the molecues are too far apart, then electric replusion energy between them should disspate quickly.
+
+\underline{\textbf{General Strategy:}} 
+We are analyzing when the domain is 1D first, then 2D, then finally move on to 3D. 
+Note that for any four points in \(\R^3\) (assuming the points are not coplanar), there are no points that would be "trapped" in-between other points, meaning that every point has "access" to any infinite amount of space (more precisely, if we construct the Voronoi diagram based on the four points, then each point would belong to a cell that has infinite volume).
+To keep this property in its lower-dimensonal counterpart, we will have two centres in the 1D case, and three centres in 2D, assuming that the points are linearly independent (will deal with the edge cases later).
+
+Also note that the indefinite integral \(\int_{\R^n} e^{-\beta |\vt|} \diff \vt\) is rather easy to calulate in any dimension,
+\begin{align*}
+    \int_{\R^n} e^{-\beta |\vt|} \diff \vt = \frac{2 \pi^{n/2}\Gamma(n)}{\Gamma(n/2) \beta^n}. \tag{\(\ast\)}
+\end{align*}
+Therefore, the general strategy is to upper bound the integrand with one \(e^{-\beta_i|\vt|}\) or several \(e^{-\beta_i|\vt|}\)'s pieced together, while making sure it decays exponentially as \(r\) grows.
+
+\textbf{\underline{Attempt 1} (triangluar inequality):} This unforunately doesn't work. The integral can be bounded by \(e^{-\beta|\vt|}\) but it doesn't decay exponentially as \(r\) grows. Let's see why in the 1D case. We have
+\begin{align*}
+    f(r) = \int_{\R} e^{-\alpha_1|r_1 - c_1| - \alpha_2 |r_1 - (c_2 - r)| } \dr_1.
+\end{align*}
+Then \(|r_1 - c_1| \geq |r_1| - |c_1|\) and \(|r_1 - (c_2 - r)| \geq |r_1| - |c_2 - r|\).
+Therefore, the expoenet
+\begin{align*}
+    &-\alpha_1|r_1 - c_1| - \alpha_2 |r_1 - (c_2 - r)| \\
+    \leq& -(\alpha_1 + \alpha_2)|r_1| + \alpha_1|c_1| + \alpha_2|c_2 - r|  \\
+    \leq& -(\alpha_1 + \alpha_2)|r_1| + (\alpha_1|c_1| + \alpha_2|c_2|) + \alpha_2 r.
+\end{align*}
+Therefore,
+\begin{align*}
+    e^{-\alpha_1|r_1 - c_1| - \alpha_2 |r_1 - (c_2 - r)|} \leq e^{\alpha_2 r} \cdot e^{\alpha_1|c_1| + \alpha_2|c_2|}\cdot e^{-(\alpha_1 + \alpha_2)|r_1|},
+\end{align*}
+which gives
+\begin{align*}
+    \int_{\R}  e^{-\alpha_1|r_1 - c_1| - \alpha_2 |r_1 - (c_2 - r)|} 
+    \leq 
+    e^{\alpha_2 r} 
+    \cdot 
+    \overbrace{e^{\alpha_1|c_1| + \alpha_2|c_2|}}^{\text{constant}} 
+    \underbrace{\int_{\R} e^{-(\alpha_1 + \alpha_2)|r_1|} \dr_1}_{\text{constant by }(\ast)} = \mathcal{O}(e^{\alpha_2r}).
+\end{align*}
+However, this upper bound grows exponentially!
+
+\textbf{\underline{Attempt 2} (slicing):} 
+
+\end{document}
