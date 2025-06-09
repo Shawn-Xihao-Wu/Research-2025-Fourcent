@@ -12,28 +12,36 @@
 \begin{document}
 \underline{\textbf{Goal:}} Find an upper bound \(F(r)\) of the function,
 \begin{align*}
-    f(r) = \int_{\R^3} e^{-\alpha_1|\vr_1 - \vc_1| - \alpha_2|\vr_1 - \vc_2|-\alpha_3|\vr_1 + r\vom - \vc_3|-\alpha_4|\vr_1 + r\vom - \vc_4|} \diff \vr_1,
+    f(r) = \int_{\R^3} e^{-\alpha_1|\vr_1 - \vc_1| - \alpha_2|\vr_1 - \vc_2|-\alpha_3|\vr_1 + r\vomg - \vc_3|-\alpha_4|\vr_1 + r\vomg - \vc_4|} \diff \vr_1,
 \end{align*}
-such that \(f(r) \leq F(r) = \mathcal{O}(e^{-\beta r})\) for some \(\beta > 0\). And the bound should be easy to calculate with only elementary operation.
+such that \(f(r) \leq F(r) = \mathcal{O}(e^{-\beta r})\) for some \(\beta > 0\). And the bound should be easy to calculate with only elementary operations. Also the bound should be tight, since we are deciding at which point of \(r\) we can just chop off the rest, if the bound if not tight, it will not have numerical difference.
 
 \underline{\textbf{Intuition:}} Note that the exponent in the integrand can be written as 
 \begin{align*}
-    -\alpha_1|\vr_1 - \vc_1| - \alpha_2|\vr_1 - \vc_2|-\alpha_3|\vr_1 - (\vc_3-r\vom)|-\alpha_4|\vr_1 - (\vc_4 - r\vom)|,
+    -\alpha_1|\vr_1 - \vc_1| - \alpha_2|\vr_1 - \vc_2|-\alpha_3|\vr_1 - (\vc_3-r\vomg)|-\alpha_4|\vr_1 - (\vc_4 - r\vomg)|,
 \end{align*} 
 meaning that as \(r\) grows to infinity, we can think the centres \(\vc_3, \vc_4\) are moving away from \(\vc_1, \vc_2\) in the direction \(-\omega\) up to infinity. And the indefinie integral \(f(r)\) should goes to zero exponentially as \(r\) grows to infinity because when the molecues are too far apart, then electric replusion energy between them should disspate quickly.
 
 \underline{\textbf{General Strategy:}} 
-We are analyzing when the domain is 1D first, then 2D, then finally move on to 3D. 
+We analyze the case when the domain is 1D first, then 2D, then finally move on to 3D. 
 Note that for any four points in \(\R^3\) (assuming the points are not coplanar), there are no points that would be "trapped" in-between other points, meaning that every point has "access" to any infinite amount of space (more precisely, if we construct the Voronoi diagram based on the four points, then each point would belong to a cell that has infinite volume).
-To keep this property in its lower-dimensonal counterpart, we will have two centres in the 1D case, and three centres in 2D, assuming that the points are linearly independent (will deal with the edge cases later).
+To keep this property in its lower-dimensonal counterparts, we will have two centres in the 1D case, and three centres in 2D (assuming that the points are linearly independent).
 
-Also note that the indefinite integral \(\int_{\R^n} e^{-\beta |\vt|} \diff \vt\) is rather easy to calulate in any dimension,
+Also note that the indefinite integral \(\int_{\R^n} e^{-\beta |\vr_1|} \diff \vr_1\) is rather easy to calulate in any dimensions,
 \begin{align*}
-    \int_{\R^n} e^{-\beta |\vt|} \diff \vt = \frac{2 \pi^{n/2}\Gamma(n)}{\Gamma(n/2) \beta^n}. \tag{\(\ast\)}
+    \int_{\R^n} e^{-\beta |\vr_1|} \diff \vr_1 = \frac{2 \pi^{n/2}\Gamma(n)}{\Gamma(n/2) \beta^n}. \tag{\(\ast\)}
 \end{align*}
-Therefore, the general strategy is to upper bound the integrand with one \(e^{-\beta_i|\vt|}\) or several \(e^{-\beta_i|\vt|}\)'s pieced together, while making sure it decays exponentially as \(r\) grows.
+Therefore, the general strategy is to upper bound the \textit{integrand} with one \(\mu(r)e^{-\beta|\vr_1|}\) or several \(\mu_i(r)e^{-\beta_i|\vr_1|}\)'s pieced together where \(\mu(r) = \mathcal{O}(e^{-\gamma r})\) (\(\gamma > 0\)) so that
+\begin{align*}
+    f(r) 
+    \leq 
+    \underbrace{\int_{\R_n} \mu(r) e^{-\beta|\vr_1|} \diff \vr_1}_{F(r)}
+    =
+    \mu(r) \underbrace{\int_{\R_n}  e^{-\beta|\vr_1|} \diff \vr_1}_{\text{constant}}
+    = \mathcal{O}(e^{-\gamma r})
+\end{align*}
 
-\textbf{\underline{Attempt 1} (triangluar inequality):} This unforunately doesn't work. The integral can be bounded by \(e^{-\beta|\vt|}\) but it doesn't decay exponentially as \(r\) grows. Let's see why in the 1D case. We have
+\textbf{\underline{Attempt 1} (only with triangluar inequality):} This unforunately doesn't work. The integral can be bounded by some function of the form \(\mu(r)e^{-\beta|\vx|}\) but \(\mu(r)\) doesn't decay exponentially as \(r\) grows. Let's see why in the 1D case. Suppose the direction vector \(\vomg = 1\). We have
 \begin{align*}
     f(r) = \int_{\R} e^{-\alpha_1|r_1 - c_1| - \alpha_2 |r_1 - (c_2 - r)| } \dr_1.
 \end{align*}
@@ -50,15 +58,39 @@ Therefore,
 \end{align*}
 which gives
 \begin{align*}
-    \int_{\R}  e^{-\alpha_1|r_1 - c_1| - \alpha_2 |r_1 - (c_2 - r)|} 
+    \int_{\R}  e^{-\alpha_1|r_1 - c_1| - \alpha_2 |r_1 - (c_2 - r)|}
     \leq 
-    e^{\alpha_2 r} 
+    \underbrace{e^{\alpha_2 r}}_{\mathcal{O}(e^{\alpha_2r})}
     \cdot 
     \overbrace{e^{\alpha_1|c_1| + \alpha_2|c_2|}}^{\text{constant}} 
-    \underbrace{\int_{\R} e^{-(\alpha_1 + \alpha_2)|r_1|} \dr_1}_{\text{constant by }(\ast)} = \mathcal{O}(e^{\alpha_2r}).
+    \underbrace{\int_{\R} e^{-(\alpha_1 + \alpha_2)|r_1|} \dr_1}_{\text{constant by }(\ast)}.
 \end{align*}
 However, this upper bound grows exponentially!
 
-\textbf{\underline{Attempt 2} (slicing):} 
+\textbf{\underline{Attempt 2} (slicing in 1D):} This actually works!
+Suppose we have the following setup where \(\omega = -1, c_1 < c_2\) with two STOs, \(\Phi_1(r_1) = \exp(-\alpha_1|r_1-c_1|), \Phi_2(r_1,r) = \exp(-\alpha_2|r_1 - (c_2 + r)|)\).
+Then the integrand is \(\Psi(r_1,r) = \Phi_1(r_1) \Phi_2(r_1,r)\). 
+
+\begin{center}
+    \includegraphics[scale=0.23]{figure1.jpeg}
+\end{center}
+
+We bound \(\Psi(r_1,r)\) piecewise. We claim that for fixed \(r\),
+\begin{enumerate}
+    \item on \((-\infty, c_1]\), \(\Psi(r_1,r) \leq \Phi_2(c_1,r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_1|)\),
+    \item on \([c_2,+\infty)\), \(\Psi(r_1,r) \leq \Phi_1(c_2+r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_2|)\),
+    \item on \([c_1,c_2]\), the line segement between points \((c_1, \Psi(c_1,r))\) and \((c_2, \Psi(c_2,r))\).
+\end{enumerate}
+Click \href{https://www.desmos.com/calculator/zuqivaujt4}{here} to see graph (the purple dotted lines are the upper bounds).
+We first note that the third claim is straightforward, as \(\Psi(r_1,r)\) between \(c_1,c_2\) is always convex proven by Prof. Kaur. We will thus only show the proof for the first claim as the second is similar.
+
+\begin{proof}
+
+\end{proof}
+
+
+
+
+
 
 \end{document}
