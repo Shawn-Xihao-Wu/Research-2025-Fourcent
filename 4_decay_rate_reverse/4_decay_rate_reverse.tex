@@ -68,29 +68,76 @@ which gives
 However, this upper bound grows exponentially!
 
 \textbf{\underline{Attempt 2} (slicing in 1D):} This actually works!
-Suppose we have the following setup where \(\omega = -1, c_1 < c_2\) with two STOs, \(\Phi_1(r_1) = \exp(-\alpha_1|r_1-c_1|), \Phi_2(r_1,r) = \exp(-\alpha_2|r_1 - (c_2 + r)|)\).
+Suppose we have the following setup where \(\omega = -1, c_1 < c_2, r \geq 0\). And two STOs, \(\Phi_1(r_1) = \exp(-\alpha_1|r_1-c_1|), \Phi_2(r_1,r) = \exp(-\alpha_2|r_1 - (c_2 + r)|)\).
 Then the integrand is \(\Psi(r_1,r) = \Phi_1(r_1) \Phi_2(r_1,r)\). 
 
 \begin{center}
-    \includegraphics[scale=0.23]{figure1.jpeg}
+    \includegraphics[scale=0.21]{figure1.jpeg}
 \end{center}
 
 We bound \(\Psi(r_1,r)\) piecewise. We claim that for fixed \(r\),
 \begin{enumerate}
-    \item on \((-\infty, c_1]\), \(\Psi(r_1,r) \leq \Phi_2(c_1,r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_1|)\),
-    \item on \([c_2,+\infty)\), \(\Psi(r_1,r) \leq \Phi_1(c_2+r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_2|)\),
-    \item on \([c_1,c_2]\), the line segement between points \((c_1, \Psi(c_1,r))\) and \((c_2, \Psi(c_2,r))\).
+    \item on \((-\infty, c_1]\), \(\Psi(r_1,r) \leq \mu_1(r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_1|)\), where \(\mu_1(r) = \Phi_2(c_1,r)\).
+    \item on \([c_2,+\infty)\), \(\Psi(r_1,r) \leq \mu_2(r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_2|)\), where \(\mu_2(r) = \Phi_1(c_2+r).\)
+    \item on \([c_1,c_2]\), the line segement \(\ell\) between points \((c_1, \Psi(c_1,r))\) and \((c_2, \Psi(c_2,r))\),
 \end{enumerate}
-Click \href{https://www.desmos.com/calculator/zuqivaujt4}{here} to see graph (the purple dotted lines are the upper bounds).
+where both \(\mu_1(r), \mu_2(r) = \mathcal{O}(e^{-\beta r})\) for some \(\beta > 0\).
+
 We first note that the third claim is straightforward, as \(\Psi(r_1,r)\) between \(c_1,c_2\) is always convex proven by Prof. Kaur. We will thus only show the proof for the first claim as the second is similar.
 
 \begin{proof}
+Note that on the interval \((-\infty,c_1]\), \(   |r_1 - c_1| < |r_1 - (c_2+r)|\), so
+\begin{align*} 
+    & -\alpha_2 |r_1-c_1| > -\alpha_2|r_1-(c_2+r)|\\
+    \implies & -\alpha_1|r_1-c_1| - \alpha_2|r_1-(c_2+r)| < -\alpha_1|r_1-c_1| - \alpha_2|r_1-c_1|\\
+    \implies & -\alpha_1|r_1-c_1| - \alpha_2|r_1-(c_2+r)| < -(\alpha_1 + \alpha_2)|r_1 - c_1|\\
+    \implies & \exp(-\alpha_1|r_1-c_1| - \alpha_2|r_1-(c_2+r)|) < \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|),
+\end{align*}
+which gives,
+\begin{align*}
+    \boxed{\Psi(r_1, r) \leq \exp(-(\alpha_1 + \alpha_2)|r_1-c_1|)} \tag{\(\ast\ast\)}
+\end{align*}
+Graphicaly, this upper bound is the following blue curve.
+\begin{center}
+    \includegraphics[scale=0.5]{figure2.png}
+\end{center}
+However, to make the upper bound decay exponentially as the function of \(r\), we need the coefficient term \(\mu_1(r)\) to decay fast, and in the case of 1D, \(\mu_1(r) = \Phi_2(c_1,r)\) will suffice.
 
+Note that when \(r_1 < c_1\), \(|r_1 - (c_2+r)| = |r_1 - c_1| + |c_1 - (c_2+r)|\).
+Therefore,
+\begin{align*}
+    &-\alpha_2|r_1 - (c_2+r)| = -\alpha_2|r_1 - c_1| -\alpha_2|c_1 - (c_2+r)|\\
+    \implies & -\alpha_1|r_1-c_1|-\alpha_2|r_1 - (c_2+r)|= -\alpha_1|r_1-c_1|-\alpha_2|r_1 - c_1| -\alpha_2|c_1 - (c_2+r)|\\
+    \implies & -\alpha_1|r_1-c_1|-\alpha_2|r_1 - (c_2+r)|= -(\alpha_1 + \alpha_2)|r_1 - c_1| -\alpha_2|c_1 - (c_2+r)|\\
+    \implies & \exp(-\alpha_1|r_1-c_1|-\alpha_2|r_1 - (c_2+r)|) = \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1| -\alpha_2|c_1 - (c_2+r)|)\\
+    \implies &\exp(-\alpha_1|r_1-c_1|-\alpha_2|r_1 - (c_2+r)|) = \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|)\cdot \exp(-\alpha_2|c_1 - (c_2+r)|)\\
+    \implies & \Psi(r_1,r) \leq \Phi_2(c_1,r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|),
+\end{align*}
+which gives a very tight bound (equality actually!) on \((-\infty, c_1]\) showing up here as the dotted purple curve below.
+
+\begin{center}
+    \includegraphics[scale=0.5]{figure3.png}
+\end{center}
+
+Therefore,
+\begin{align*}
+    \int_{\R} \Phi(r_1,r) \dr_1 \leq& \int_{(-\infty,c_1]} \mu_1(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|) \dr_1
+    + \int_{[c_1,c_2]} \ell \dr_1 \\
+    +&\int_{[c_2,+\infty)} \mu_2(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1,
+\end{align*}
+where
+\begin{align*}
+    \int_{(-\infty,c_1]} \mu_1(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|) \dr_1 \
+    &= \mu_1(r)\cdot \frac{1}{2} \overbrace{\int_{\R} \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|) \dr_1}^{2/(\alpha_1 + \alpha_2)}\\
+    &= \frac{\exp(-\alpha_2|c_1 - (c_2 + r)|)}{\alpha_1 + \alpha_2}\\
+    &= \frac{e^{-\alpha_2(c_2-c_1)}}{\alpha_1 + \alpha_2} \cdot e^{-\alpha_2 r}\\
+    & = \mathcal{O}(e^{-\beta r}) \text{ for some } \beta > 0.
+\end{align*}
+Similarly, \(\int_{[c_2,+\infty)} \mu_2(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1 = \mathcal{O}(e^{-\beta r}) \text{ for some } \beta > 0.\)
+Finally, it's clear that,
+\begin{align*}
+    \int_{[c_1,c_2]} \ell \dr_1 = \frac{|c_1 - (c_2 + r)|}{2} (e^{-\alpha_1|(c_2 + r) - c_1|} + e^{-\alpha_2|c_1 - (c_2 + r)|}) = \mathcal{O}(e^{-\beta r}) \text{ for some } \beta > 0.
+\end{align*}
+This concludes the proof. Click \href{https://www.desmos.com/calculator/zuqivaujt4}{\underline{here}} to see the full graph.
 \end{proof}
-
-
-
-
-
-
 \end{document}
