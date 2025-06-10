@@ -74,14 +74,14 @@ Then the integrand is \(\Psi(r_1,r) = \Phi_1(r_1) \Phi_2(r_1,r)\).
 \begin{center}
     \includegraphics[scale=0.21]{figure1.jpeg}
 \end{center}
-
+Click \href{https://www.desmos.com/calculator/zuqivaujt4}{\underline{here}} to see the full graph.
 We bound \(\Psi(r_1,r)\) piecewise. We claim that for fixed \(r\),
 \begin{enumerate}
     \item on \((-\infty, c_1]\), \(\Psi(r_1,r) \leq \mu_1(r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_1|)\), where \(\mu_1(r) = \Phi_2(c_1,r)\).
     \item on \([c_2,+\infty)\), \(\Psi(r_1,r) \leq \mu_2(r) \cdot \exp(-(\alpha_1 + \alpha_2)|r_1-c_2|)\), where \(\mu_2(r) = \Phi_1(c_2+r).\)
     \item on \([c_1,c_2]\), the line segement \(\ell\) between points \((c_1, \Psi(c_1,r))\) and \((c_2, \Psi(c_2,r))\),
 \end{enumerate}
-where both \(\mu_1(r), \mu_2(r) = \mathcal{O}(e^{-\beta r})\) for some \(\beta > 0\).
+where it's clear that both \(\mu_1(r), \mu_2(r) = \mathcal{O}(e^{-\beta r})\) for some \(\beta > 0\).
 
 We first note that the third claim is straightforward, as \(\Psi(r_1,r)\) between \(c_1,c_2\) is always convex proven by Prof. Kaur. We will thus only show the proof for the first claim as the second is similar.
 
@@ -123,23 +123,46 @@ Therefore,
 \begin{align*}
     \int_{\R} \Phi(r_1,r) \dr_1 \leq& \int_{(-\infty,c_1]} \mu_1(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|) \dr_1
     + \int_{[c_1,c_2]} \ell \dr_1 \\
-    +&\int_{[c_2,+\infty)} \mu_2(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1,
+    +&\int_{[c_2,+\infty)} \mu_2(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1.
 \end{align*}
-where
+And let \(\alpha = \min(\alpha_1 , \alpha_2)\).
+
+Therefore,
 \begin{align*}
     \int_{(-\infty,c_1]} \mu_1(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|) \dr_1 \
     &= \mu_1(r)\cdot \frac{1}{2} \overbrace{\int_{\R} \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|) \dr_1}^{2/(\alpha_1 + \alpha_2)}\\
+    &= \frac{\Phi_2(c_1, r)}{\alpha_1 + \alpha_2}\\
     &= \frac{\exp(-\alpha_2|c_1 - (c_2 + r)|)}{\alpha_1 + \alpha_2}\\
-    &= \frac{e^{-\alpha_2(c_2-c_1)}}{\alpha_1 + \alpha_2} \cdot e^{-\alpha_2 r}\\
-    & = \mathcal{O}(e^{-\beta r}) \text{ for some } \beta > 0.
+    &= \frac{\exp(-\alpha_2(c_2-c_1))}{\alpha_1 + \alpha_2} \cdot \exp(-\alpha_2 r)\\
+    & \leq \boxed{\frac{e^{-\alpha(c_2 - c_1)}}{2 \alpha} e^{-\alpha r}}\\
+    & = \mathcal{O}(e^{-\alpha r}).
 \end{align*}
-Similarly, \(\int_{[c_2,+\infty)} \mu_2(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1 = \mathcal{O}(e^{-\beta r}) \text{ for some } \beta > 0.\)
-Finally, it's clear that,
+Similarly,
 \begin{align*}
-    \int_{[c_1,c_2]} \ell \dr_1 = \frac{|c_1 - (c_2 + r)|}{2} (e^{-\alpha_1|(c_2 + r) - c_1|} + e^{-\alpha_2|c_1 - (c_2 + r)|}) = \mathcal{O}(e^{-\beta r}) \text{ for some } \beta > 0.
+    \int_{[c_2,+\infty)} \mu_2(r) \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1
+    & = \mu_2(r)  \cdot \frac{1}{2} \overbrace{\int_{\R} \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1}^{2/(\alpha_1 + \alpha_2)}\\
+    & = \frac{\Phi_1(c_2 + r)}{\alpha_1 + \alpha_2}\\
+    & = \frac{\exp(-\alpha_1|c_2 + r - c_1|)}{\alpha_1 + \alpha_2}\\
+    & = \frac{\exp(-\alpha_1(c_2 - c_1))}{\alpha_1 + \alpha_2} \cdot \exp(-\alpha_1 r)\\
+    & \leq \boxed{\frac{e^{-\alpha(c_2 - c_1)}}{2 \alpha} e^{-\alpha r}} \\
+    & = \mathcal{O}(e^{-\alpha r}).
 \end{align*}
-This concludes the proof. Click \href{https://www.desmos.com/calculator/zuqivaujt4}{\underline{here}} to see the full graph.
+Finally, using the formula to calcuate the area of trapozoid,
+\begin{align*}
+    \int_{[c_1,c_2]} \ell \dr_1 
+    &= \frac{|c_1 - (c_2 + r)|}{2} \cdot \brac{\exp(-\alpha_1|(c_2 + r) - c_1|) + \exp(-\alpha_2|c_1 - (c_2 + r)|)}\\
+    &=\frac{r + c_2 - c_1}{2} \cdot \brac{e^{-\alpha_1(c_2 - c_1)}e^{-\alpha_1 r} + e^{-\alpha_2(c_2 - c_1)}e^{-\alpha_2 r}}\\
+    &\leq \frac{r + c_2 - c_1}{2} \cdot \brac{2 e^{-\alpha(c_2 - c_1)}e^{-\alpha r}} \tag{recall \(\alpha = \min(\alpha_1, \alpha_2)\)}\\
+    &=\boxed{(r + c_2 - c_1) \cdot e^{-\alpha(c_2 - c_1)}e^{-\alpha r}} \\
+    & = \mathcal{O}(r) \cdot \mathcal{O}(e^{-\alpha r})\\
+    & = \mathcal{O}(e^{-\beta r}) \tag{for some \(\beta > 0\)}.
+\end{align*}
+And the closed form of the upper bound for the ease of computation is,
+\begin{align*}
+    \boxed{F(r) = \brac{r + c_2 - c_1 + \frac{1}{\alpha}}e^{-\alpha(c_2 - c_1)} \cdot e^{-\alpha r}}.
+\end{align*}
 \end{proof}
+
 
 \textbf{\underline{Attempt 3} (slicing in 2D):} This is where the problem begins...
 \end{document}
