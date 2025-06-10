@@ -137,8 +137,8 @@ Therefore,
     &= \mu_1(r)\cdot \frac{1}{2} \overbrace{\int_{\R} \exp(-(\alpha_1 + \alpha_2)|r_1 - c_1|) \dr_1}^{2/(\alpha_1 + \alpha_2)}\\
     &= \frac{\Phi_2(c_1, r)}{\alpha_1 + \alpha_2}\\
     &= \frac{\exp(-\alpha_2|c_1 - (c_2 + r)|)}{\alpha_1 + \alpha_2}\\
-    &= \mshadowbox{\frac{\exp(-\alpha_2(c_2-c_1))}{\alpha_1 + \alpha_2} \cdot \exp(-\alpha_2 r)} \tag{exact}\\
-    & \leq \movalbox{\frac{e^{-\alpha(c_2 - c_1)}}{2 \alpha} e^{-\alpha r}} \tag{approx.}\\
+    &= \movalbox{\frac{\exp(-\alpha_2(c_2-c_1))}{\alpha_1 + \alpha_2} \cdot \exp(-\alpha_2 r)} \tag{exact}\\
+    & \leq \mshadowbox{\frac{e^{-\alpha(c_2 - c_1)}}{2 \alpha} e^{-\alpha r}} \tag{approx.}\\
     & = \mathcal{O}(e^{-\alpha r}).
 \end{align*}
 Similarly,
@@ -147,17 +147,17 @@ Similarly,
     & = \mu_2(r)  \cdot \frac{1}{2} \overbrace{\int_{\R} \exp(-(\alpha_1 + \alpha_2)|r_1 - c_2|) \dr_1}^{2/(\alpha_1 + \alpha_2)}\\
     & = \frac{\Phi_1(c_2 + r)}{\alpha_1 + \alpha_2}\\
     & = \frac{\exp(-\alpha_1|c_2 + r - c_1|)}{\alpha_1 + \alpha_2}\\
-    & = \mshadowbox{\frac{\exp(-\alpha_1(c_2 - c_1))}{\alpha_1 + \alpha_2} \cdot \exp(-\alpha_1 r)} \tag{exact}\\
-    & \leq \movalbox{\frac{e^{-\alpha(c_2 - c_1)}}{2 \alpha} e^{-\alpha r}} \tag{approx.} \\
+    & = \movalbox{\frac{\exp(-\alpha_1(c_2 - c_1))}{\alpha_1 + \alpha_2} \cdot \exp(-\alpha_1 r)} \tag{exact}\\
+    & \leq \mshadowbox{\frac{e^{-\alpha(c_2 - c_1)}}{2 \alpha} e^{-\alpha r}} \tag{approx.} \\
     & = \mathcal{O}(e^{-\alpha r}).
 \end{align*}
 Finally, using the formula to calcuate the area of trapozoid,
 \begin{align*}
     \int_{[c_1,c_2]} \ell \dr_1 
     &= \frac{|c_1 - (c_2 + r)|}{2} \cdot \brac{\exp(-\alpha_1|(c_2 + r) - c_1|) + \exp(-\alpha_2|c_1 - (c_2 + r)|)}\\
-    &=\mshadowbox{\frac{r + c_2 - c_1}{2} \cdot \brac{e^{-\alpha_1(c_2 - c_1)}e^{-\alpha_1 r} + e^{-\alpha_2(c_2 - c_1)}e^{-\alpha_2 r}}} \tag{exact}\\
+    &=\movalbox{\frac{r + c_2 - c_1}{2} \cdot \brac{e^{-\alpha_1(c_2 - c_1)}e^{-\alpha_1 r} + e^{-\alpha_2(c_2 - c_1)}e^{-\alpha_2 r}}} \tag{exact}\\
     &\leq \frac{r + c_2 - c_1}{2} \cdot \brac{2 e^{-\alpha(c_2 - c_1)}e^{-\alpha r}} \\
-    &=\movalbox{(r + c_2 - c_1) \cdot e^{-\alpha(c_2 - c_1)}e^{-\alpha r}} \tag{approx.}\\
+    &=\mshadowbox{(r + c_2 - c_1) \cdot e^{-\alpha(c_2 - c_1)}e^{-\alpha r}} \tag{approx.}\\
     & = \mathcal{O}(r) \cdot \mathcal{O}(e^{-\alpha r})\\
     & = \mathcal{O}(e^{-\beta r}) \text{ for some } \beta > 0.
 \end{align*}
@@ -170,9 +170,9 @@ And the exact closed form of the upper bound is,
 
 
 \textbf{\underline{Attempt 3} (slicing in 1D \& optimized computation):}
-To make sure the upper bound easy to compute, we use the simplified versions which are in the round boxes before, which gives the following:
+To make sure the upper bound easy to compute, we use the looser upper bound, which gives the following:
 \begin{align*}
-    \boxed{F(r) = \brac{r + c_2 - c_1 + \frac{1}{\alpha}}e^{-\alpha(c_2 - c_1)} \cdot e^{-\alpha r}.}
+    \mdoublebox{F(r) = \brac{r + c_2 - c_1 + \frac{1}{\alpha}}e^{-\alpha(c_2 - c_1)} \cdot e^{-\alpha r}.}
 \end{align*}
 
 \textbf{\underline{Attempt 4} (slicing in 2D):} This is where the problem begins...
